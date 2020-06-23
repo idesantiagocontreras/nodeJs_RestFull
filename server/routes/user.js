@@ -1,5 +1,6 @@
 const express = require('express');
-const Usuario = require('../models/usuario');
+const Usuario = require('../models/user');
+const auth = require('../middlewares/auth');
 
 const app = express();
 const bcryp = require('bcrypt');
@@ -12,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', auth.verifyToken, (req, res) => {
 
     let desde = req.query.desde || 0;
     let limit = req.query.limit || 5;
@@ -44,7 +45,7 @@ app.get('/usuario', function(req, res) {
         });
 });
 
-app.post('/usuario', function(req, res) {
+app.post('/usuario', auth.verifyToken, (req, res) => {
 
     let body = req.body;
 
@@ -70,7 +71,7 @@ app.post('/usuario', function(req, res) {
     });
 });
 
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [auth.verifyToken, auth.verifyAdminRole], (req, res) => {
 
     let id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'img', 'role', 'estado']);
@@ -91,7 +92,7 @@ app.put('/usuario/:id', function(req, res) {
     });
 });
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [auth.verifyToken, auth.verifyAdminRole], (req, res) => {
     let id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'img', 'role', 'estado']);
 

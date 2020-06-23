@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-app.use(require('./routes/usuario'));
+app.use(require('./routes/index'));
 
 mongoose.connect(process.env.urlDB, {
     useNewUrlParser: true,
