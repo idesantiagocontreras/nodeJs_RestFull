@@ -3,6 +3,7 @@ require('./config/config.js');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 

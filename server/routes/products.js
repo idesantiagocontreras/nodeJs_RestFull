@@ -4,13 +4,13 @@ const app = express();
 
 let Producto = require('../models/producto');
 
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 
 // =================================
@@ -52,7 +52,7 @@ app.get('/productos', auth.verifyToken, (req, res) => {
             res.json({
                 ok: true,
                 productos: productoDB
-            })
+            });
         });
 });
 
@@ -88,7 +88,7 @@ app.get('/productos/:id', auth.verifyToken, (req, res) => {
             res.json({
                 ok: true,
                 producto: productoDB
-            })
+            });
         });
 });
 
@@ -124,7 +124,7 @@ app.get('/productos/buscar/:termino', auth.verifyToken, (req, res) => {
             res.json({
                 ok: true,
                 productos
-            })
+            });
         });
 });
 // =================================
